@@ -1,32 +1,33 @@
 <?php 
-    ///////////////TEST MODE\\\\\\\\\\\\\\\
-    function getCountryByIp($ipAddress)
-    {
-        $ipDetail=array();
-        $f = file_get_contents("http://api.hostip.info/?ip=".$ipAddress);
-        //Получаем код страны
-        preg_match("@<countryAbbrev>(.*?)</countryAbbrev>@si", $f, $countryCode);
-        $ipDetail['countryCode'] = $countryCode[1];
-
-        return $ipDetail;
-    }
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $ip = '204.79.229.0';
-    $ipDetail = getCountryByIp($ip);
-    $country = $ipDetail['countryCode'];
-    $connect = mysql_connect('localhost', 'root', '123456');
-    mysql_select_db('pdf');
-    $query = "SELECT COUNT(*) FROM pdf WHERE country='".$country."'";
-    $result = mysql_query($query);
-    $row = mysql_fetch_row($result);
-    $total = $row[0];
-    if($total > 4) die('This is a test mode. I set limitation');
-    $sql = " INSERT INTO pdf (country) VALUES
-         ('$country') ";
-    $result1 = mysql_query($sql);
-    mysql_close($connect);
-    /////////////////////////////////////////
-    
+//
+//    ///////////////TEST MODE\\\\\\\\\\\\\\\
+//    function getCountryByIp($ipAddress)
+//    {
+//        $ipDetail=array();
+//        $f = file_get_contents("http://api.hostip.info/?ip=".$ipAddress);
+//        //Получаем код страны
+//        preg_match("@<countryAbbrev>(.*?)</countryAbbrev>@si", $f, $countryCode);
+//        $ipDetail['countryCode'] = $countryCode[1];
+//
+//        return $ipDetail;
+//    }
+//    $ip = $_SERVER['REMOTE_ADDR'];
+//    $ip = '204.79.229.0';
+//    $ipDetail = getCountryByIp($ip);
+//    $country = $ipDetail['countryCode'];
+//    $connect = mysql_connect('localhost', 'root', '123456');
+//    mysql_select_db('pdf');
+//    $query = "SELECT COUNT(*) FROM pdf WHERE country='".$country."'";
+//    $result = mysql_query($query);
+//    $row = mysql_fetch_row($result);
+//    $total = $row[0];
+//    if($total > 4) die('This is a test mode. I set limitation');
+//    $sql = " INSERT INTO pdf (country) VALUES
+//         ('$country') ";
+//    $result1 = mysql_query($sql);
+//    mysql_close($connect);
+//    /////////////////////////////////////////
+//    
     
     
     
