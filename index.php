@@ -93,9 +93,19 @@
         <div class="control-group">
             <input type="text" class="input-block-level" name="title2" placeholder="Title 2">
         </div>    
-<!--        <div class="control-group">
-            <input type="text" class="input-block-level" name="unit" placeholder="Unit">
-        </div>-->
+        <div class="control-group">
+            <input type="text" class="input-block-level" name="dba" placeholder="DBA">
+        </div>
+        <div class="control-group ">
+            <div class="color-card">
+                <span class="label label-info">DBA Font:</span>
+            </div>
+            <div class="btn-group dba" data-toggle="buttons-radio">
+                <button type="button" data-font="1" class="btn btn-info active">Bold</button>
+                <input type="hidden" name="dba-font" value="1">
+                <button type="button" data-font="0" class="btn btn-info">Normal</button>
+            </div>
+        </div>
         <div class="control-group">
             <input type="text" class="input-block-level" name="street" placeholder="Street">
         </div>    
@@ -155,6 +165,9 @@
             });
             $('.qr .btn').click(function(){
                 $('input[name="qr-code"]').val($(this).attr('data-qr'));
+            });
+            $('.dba .btn').click(function(){
+                $('input[name="dba-font"]').val($(this).attr('data-font'));
             });
             $('.form-signin').validate(
             {
