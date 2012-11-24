@@ -1,5 +1,5 @@
 <?php 
-//
+
 //    ///////////////TEST MODE\\\\\\\\\\\\\\\
     function getCountryByIp($ipAddress)
     {
@@ -27,7 +27,7 @@
     $result1 = mysql_query($sql);
     mysql_close($connect);
 //    /////////////////////////////////////////
-//    
+ 
     
     
     
