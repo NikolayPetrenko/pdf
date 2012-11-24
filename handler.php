@@ -1,30 +1,30 @@
 <?php 
 
 //    ///////////////TEST MODE\\\\\\\\\\\\\\\
-//    function getCountryByIp($ipAddress)
-//    {
-//        $ipDetail=array();
-//        $f = file_get_contents("http://api.hostip.info/?ip=".$ipAddress);
-//        //Получаем код страны
-//        preg_match("@<countryAbbrev>(.*?)</countryAbbrev>@si", $f, $countryCode);
-//        $ipDetail['countryCode'] = $countryCode[1];
-//
-//        return $ipDetail;
-//    }
-//    $ip = $_SERVER['REMOTE_ADDR'];
-//    $ipDetail = getCountryByIp($ip);
-//    $country = $ipDetail['countryCode'];
-//    $connect = mysql_connect('localhost', 'root', '123456');
-//    mysql_select_db('pdf');
-//    $query = "SELECT COUNT(*) FROM pdf WHERE country='".$country."'";
-//    $result = mysql_query($query);
-//    $row = mysql_fetch_row($result);
-//    $total = $row[0];
-//    if($total > 4) die('This is a test mode. I set limitation');
-//    $sql = " INSERT INTO pdf (country) VALUES
-//         ('$country') ";
-//    $result1 = mysql_query($sql);
-//    mysql_close($connect);
+    function getCountryByIp($ipAddress)
+    {
+        $ipDetail=array();
+        $f = file_get_contents("http://api.hostip.info/?ip=".$ipAddress);
+        //Получаем код страны
+        preg_match("@<countryAbbrev>(.*?)</countryAbbrev>@si", $f, $countryCode);
+        $ipDetail['countryCode'] = $countryCode[1];
+
+        return $ipDetail;
+    }
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $ipDetail = getCountryByIp($ip);
+    $country = $ipDetail['countryCode'];
+    $connect = mysql_connect('localhost', 'root', '123456');
+    mysql_select_db('pdf');
+    $query = "SELECT COUNT(*) FROM pdf WHERE country='".$country."'";
+    $result = mysql_query($query);
+    $row = mysql_fetch_row($result);
+    $total = $row[0];
+    if($total > 4) die('This is a test mode. I set limitation');
+    $sql = " INSERT INTO pdf (country) VALUES
+         ('$country') ";
+    $result1 = mysql_query($sql);
+    mysql_close($connect);
 //    /////////////////////////////////////////
  
     
@@ -122,43 +122,43 @@
     
     
     // ---------------------BACK--------------------------- //
-    
-    $pdf->AddPage();
-    $pdf->setFontSubsetting(false);
-    
-    if($_POST['color'] == 1){
-        $pdf->SetFillColor(60, 40, 20, 100);
-        $pdf->SetTextColor(255,255,255);
-    }else{
-        $pdf->SetFillColor(255,255,255);
-        $pdf->SetTextColor(60, 40, 20, 100);        
+    if($_POST['pages'] == '2'){
+        $pdf->AddPage();
+        $pdf->setFontSubsetting(false);
+
+        if($_POST['color'] == 1){
+            $pdf->SetFillColor(60, 40, 20, 100);
+            $pdf->SetTextColor(255,255,255);
+        }else{
+            $pdf->SetFillColor(255,255,255);
+            $pdf->SetTextColor(60, 40, 20, 100);        
+        }
+        $right_column = '';
+        if($_POST['qr-code'] == 1){
+            $right_column = $pdf->Image($_POST['name'].'.png', 74, 38, 12, 12);
+        }
+
+        $pdf->writeHTMLCell(6.78, 53.999, '', '', '', $color_border, 0, 1, true, 'J', true);
+        $pdf->SetFont('post', '', 6.5);
+        $pdf->writeHTMLCell(35.3, 53.999, '', '', '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br style="line-height: 0.565mm">facebook.com/century21de', $color_border, 0, 1, true, 'J', true);
+        $pdf->writeHTMLCell(1, 53.999, 6.5, 0, '', $color_border, 0, 1, true, 'J', true);
+
+        if($_POST['color'] != 1){
+            $pdf->SetFillColor(255,255,255);
+            $pdf->SetTextColor(255,255,255);
+        }else{
+            $pdf->SetFillColor(60, 40, 20, 100);
+            $pdf->SetTextColor(60, 40, 20, 100);        
+        }
+        $pdf->writeHTMLCell(52, 53.999, 42, '', $right_column, $color_border, 0, 1, true, 'J', true); 
+        $pdf->writeHTMLCell(3, 53.999, 41.5, '', '', $color_border, 0, 1, true, 'J', true); 
+        $pdf->writeHTMLCell(93.799, 5.85, 0, 48.12055, '', $color_border, 0, 1, true, 'J', true);
+
+        $pdf->lastPage();
     }
-    $right_column = '';
-    if($_POST['qr-code'] == 1){
-        $right_column = $pdf->Image($_POST['name'].'.png', 74, 38, 12, 12);
-    }
-    
-    $pdf->writeHTMLCell(6.78, 53.999, '', '', '', $color_border, 0, 1, true, 'J', true);
-    $pdf->SetFont('post', '', 6.5);
-    $pdf->writeHTMLCell(35.3, 53.999, '', '', '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br style="line-height: 0.565mm">facebook.com/century21de', $color_border, 0, 1, true, 'J', true);
-    $pdf->writeHTMLCell(1, 53.999, 6.5, 0, '', $color_border, 0, 1, true, 'J', true);
-    
-    if($_POST['color'] != 1){
-        $pdf->SetFillColor(255,255,255);
-        $pdf->SetTextColor(255,255,255);
-    }else{
-        $pdf->SetFillColor(60, 40, 20, 100);
-        $pdf->SetTextColor(60, 40, 20, 100);        
-    }
-    $pdf->writeHTMLCell(52, 53.999, 42, '', $right_column, $color_border, 0, 1, true, 'J', true); 
-    $pdf->writeHTMLCell(3, 53.999, 41.5, '', '', $color_border, 0, 1, true, 'J', true); 
-    $pdf->writeHTMLCell(93.799, 5.85, 0, 48.12055, '', $color_border, 0, 1, true, 'J', true);
-    
-    $pdf->lastPage();
-    
     // ---------------------END FRONT--------------------------- //
     
     
-    $pdf->Output($_POST['name'].'.pdf', 'I');
+    $pdf->Output($_POST['name'].'.pdf', 'D');
     @unlink($qr);
 ?>

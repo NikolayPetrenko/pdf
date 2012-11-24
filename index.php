@@ -139,6 +139,16 @@
         </div>
         <div class="control-group">
             <div class="color-card">
+                <span class="label label-warning">Pages:</span>
+            </div>
+            <div style="padding-left: 76px;" class="btn-group page" data-toggle="buttons-radio">
+                <button type="button" data-page="1" class="btn btn-warning active">1-Page</button>
+                <input type="hidden" name="pages" value="1">
+                <button type="button" data-page="2" class="btn btn-warning">2-Pages</button>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="color-card">
                 <span class="label label-success">Generate QR code?:</span>
             </div>
             <div class="btn-group qr" data-toggle="buttons-radio">
@@ -168,6 +178,9 @@
             });
             $('.dba .btn').click(function(){
                 $('input[name="dba-font"]').val($(this).attr('data-font'));
+            });
+            $('.page .btn').click(function(){
+                $('input[name="pages"]').val($(this).attr('data-page'));
             });
             $('.form-signin').validate(
             {
